@@ -24,7 +24,7 @@ class Category{
     return [
       Category.fromId(id: moviesId),
       Category.fromId(id: sportsId),
-      Category.fromId(id: moviesId),
+      Category.fromId(id: musicId),
     ];
   }
 }

@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:chat/model/category.dart';
+import 'package:chat/ui/home/home_screen.dart';
 import 'package:chat/ui/rooms/add_room_navigator.dart';
 import 'package:chat/ui/rooms/add_room_view_model.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +18,7 @@ static const String routeName ='addRoom';
 class _AddRoomState extends State<AddRoom>implements AddRoomNavigator {
   String roomtitle = '';
   String roomDescription = '';
+
   var formKey = GlobalKey<FormState>();
   var categoryList = Category.getCategories();
   late Category selectedItem ;
@@ -70,20 +74,23 @@ class _AddRoomState extends State<AddRoom>implements AddRoomNavigator {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(height: 20,),
+                    //SizedBox(height: 16,),
                     Text('Create New Room',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 20,),
                     Image.asset('assets/images/persons.png',
                     height: 80,
                     width: 80,
                     ),
                     SizedBox(height: 20,),
                     TextFormField(
+                      minLines: 1,
+                      maxLines: 3,
+                      keyboardType: TextInputType.multiline ,
                       decoration: InputDecoration(
                         hintText: 'Enter Room title',
                       ),
@@ -100,7 +107,7 @@ class _AddRoomState extends State<AddRoom>implements AddRoomNavigator {
                                 child: Row(
                               children: [
                                 Image.asset(category.image,height: 30,width: 30,),
-                                SizedBox(width: 10,),
+                                SizedBox(width:20,),
                                 Text(category.title),
                               ],
                             ))).toList(),
@@ -112,6 +119,9 @@ class _AddRoomState extends State<AddRoom>implements AddRoomNavigator {
                     ),
                     SizedBox(height: 10,),
                     TextFormField(
+                      minLines: 1,
+                      maxLines: 3,
+                      keyboardType: TextInputType.multiline ,
                       decoration: InputDecoration(
                         hintText: 'Enter Room Description',
                       ),
@@ -119,18 +129,20 @@ class _AddRoomState extends State<AddRoom>implements AddRoomNavigator {
                         roomDescription = text ;
                       },
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: MediaQuery.of(context).size.height*.05,),
                     ElevatedButton(
                       style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18),
-                        )
-                      )
+                        ),
+                      ),
                       ),
                       onPressed: (){
                       validateForm();
-                    }, child: Text('Create'),),
+                    }, child: Text('Create',style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),),),
 
 
 
@@ -165,6 +177,13 @@ class _AddRoomState extends State<AddRoom>implements AddRoomNavigator {
   void showMessage(String message) {
     utils.showMessage(context, message, 'Ok', (context){
       Navigator.pop(context);
+    });
+  }
+
+  @override
+  void navigateTo() {
+    Timer(Duration(seconds: 5), () {
+      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
     });
   }
 }

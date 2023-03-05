@@ -20,7 +20,7 @@ class LoginViewModel extends ChangeNotifier{
       }else{
         navigator.hideLoading();
         navigator.showMessage('Login Successfully');
-        navigator.navigateToHome();
+        navigator.navigateToHome(userObject);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == FireBaseError.userNotFound) {

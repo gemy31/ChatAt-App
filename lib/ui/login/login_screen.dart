@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chat/model/my_user.dart';
 import 'package:chat/ui/home/home_screen.dart';
 import 'package:chat/ui/login/login_navigator.dart';
 import 'package:chat/ui/login/login_view_model.dart';
@@ -7,6 +8,8 @@ import 'package:chat/ui/register/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chat/utils.dart' as utils;
+
+import '../../providers/user_provider.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routName = 'login';
@@ -131,11 +134,15 @@ class _LoginScreenState extends State<LoginScreen> implements LoginNavigator {
   }
 
   @override
-  void navigateToHome() {
+  void navigateToHome(MyUser user) {
+    var provider = Provider.of<UserProvider>(context,listen: false);
+    provider.user = user;
+
     Timer(Duration(seconds: 5), () {
       Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
     });
   }
+
 
   @override
   void showLoading() {

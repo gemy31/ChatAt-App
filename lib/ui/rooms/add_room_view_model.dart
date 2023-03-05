@@ -7,15 +7,15 @@ class AddRoomViewModel extends ChangeNotifier {
 
   void createRoom(String title, String description, String categoryId) async {
     navigator.showLoading();
-    try{
+    try {
       var room = await DataBaseUtils.createRoomToFirebase(
           title, description, categoryId);
       navigator.hideLoading();
       navigator.showMessage('Room Created Successfully');
-    }catch(error){
+      navigator.navigateTo();
+    } catch (error) {
       navigator.hideLoading();
       navigator.showMessage(error.toString());
     }
-
   }
 }

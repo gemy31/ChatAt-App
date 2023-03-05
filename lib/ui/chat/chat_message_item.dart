@@ -5,76 +5,102 @@ import '../../providers/user_provider.dart';
 import 'package:intl/intl.dart';
 
 class MessageItem extends StatelessWidget {
-  Message message ;
+  Message message;
+
   MessageItem({required this.message});
+
   @override
   Widget build(BuildContext context) {
-   UserProvider userProvider = Provider.of<UserProvider>(context);
-    return userProvider.user?.id == message.senderId ? SentMessage(message: message):
-        ReceiveMessage(message: message);
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+    return userProvider.user?.id == message.senderId
+        ? SentMessage(message: message)
+        : ReceiveMessage(message: message);
   }
 }
+
 class SentMessage extends StatelessWidget {
-  Message message ;
+  Message message;
+
   SentMessage({required this.message});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            padding: EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight:Radius.circular(10) ,
-                bottomLeft:Radius.circular(10) ,
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                ),
+                color: Colors.blue,
               ),
-              color: Colors.blue,
+              child: Text(
+                message.content,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18
+                ),
+              ),
             ),
-            child:Text(message.content,style: TextStyle(
-              color: Colors.white,
-            ),) ,
-          ),
-          SizedBox(height: 6,),
-          //DateFormat.Hms().format(now)
-          //DateTime.fromMillisecondsSinceEpoch(message.dateTime)
-          Text('${DateFormat.jm().format(DateTime.fromMillisecondsSinceEpoch(message.dateTime)) }'),
-        ],
+            SizedBox(
+              height: 6,
+            ),
+            //DateFormat.Hms().format(now)
+            //DateTime.fromMillisecondsSinceEpoch(message.dateTime)
+            Text(
+                '${DateFormat.jm().format(DateTime.fromMillisecondsSinceEpoch(message.dateTime))}'),
+          ],
+        ),
       ),
     );
   }
 }
 
 class ReceiveMessage extends StatelessWidget {
-  Message message ;
+  Message message;
+
   ReceiveMessage({required this.message});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight:Radius.circular(10) ,
-                bottomRight:Radius.circular(10) ,
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
+                color: Colors.grey.shade600,
               ),
-              color: Colors.grey.shade600,
+              child: Text(
+                message.content,
+                style: TextStyle(
+                  color: Colors.black,
+                    fontSize: 18
+                ),
+              ),
             ),
-            child:Text(message.content,style: TextStyle(
-              color: Colors.black,
-            ),) ,
-          ),
-          SizedBox(height: 6,),
-          Text('${DateFormat.jm().format(DateTime.fromMillisecondsSinceEpoch(message.dateTime)) }'),
-        ],
+            SizedBox(
+              height: 6,
+            ),
+            Text(
+                '${DateFormat.jm().format(DateTime.fromMillisecondsSinceEpoch(message.dateTime))}'),
+          ],
+        ),
       ),
     );
   }

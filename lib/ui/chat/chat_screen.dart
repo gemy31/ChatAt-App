@@ -48,7 +48,6 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
             ),
           ),
           Scaffold(
-            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               title: Text(args.title),
@@ -72,30 +71,38 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
                 ],
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                      child: StreamBuilder<QuerySnapshot<Message>>(
-                    stream: viewModel.streamMessage,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      }
-                      var messages =snapshot.data?.docs.map((doc) => doc.data()).toList();
-                      return ListView.builder(
-                        itemBuilder: (context, index) {
-                          return MessageItem(message:messages![index],);
-                        },
-                        itemCount: messages?.length ?? 0,
-                      );
-                    },
-                  )),
+                    flex: 9,
+                    child: StreamBuilder<QuerySnapshot<Message>>(
+                      stream: viewModel.streamMessage,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Text(snapshot.error.toString());
+                        }
+                        var messages =
+                            snapshot.data?.docs.map((doc) => doc.data()).toList();
+                        return ListView.builder(
+                          itemBuilder: (context, index) {
+                            return MessageItem(
+                              message: messages![index],
+                            );
+                          },
+                          itemCount: messages?.length ?? 0,
+                        );
+                      },
+                    ),
+                  ),
                   Row(
                     children: [
                       Expanded(
                         child: TextField(
+                          keyboardType: TextInputType.multiline,
+                          minLines: 1,
+                          maxLines: 5,
                           controller: controller,
                           onChanged: (text) {
                             messageContent = text;
@@ -115,7 +122,7 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
                         ),
                       ),
                       SizedBox(
-                        width: 8,
+                        width: 5,
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -123,7 +130,8 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 2),
+                            vertical: 10.0,
+                          ),
                           child: Row(
                             children: [
                               Text('Send'),
