@@ -6,33 +6,34 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../model/room.dart';
 
-class ChatScreenViewModel extends ChangeNotifier{
-  late ChatNavigator navigator ;
-  late Room room ;
-  late MyUser? currentUser;
-  late Stream<QuerySnapshot<Message>> streamMessage ;
+class ChatScreenViewModel extends ChangeNotifier {
+  late ChatNavigator navigator;
 
-  void sendMessage(String messageContent)async{
-    if(messageContent.trim().isEmpty){
+  late Room room;
+
+  late MyUser? currentUser;
+  late Stream<QuerySnapshot<Message>> streamMessage;
+
+  void sendMessage(String messageContent) async {
+    if (messageContent.trim().isEmpty) {
       return;
     }
-      Message message =Message(
-          content: messageContent,
-          dateTime: DateTime.now().millisecondsSinceEpoch,
-          roomId: room.id,
-          senderId: currentUser?.id ?? '',
-          senderName: currentUser?.userName ?? '',
-          categoryId: room.categoryId);
-    try{
+    Message message = Message(
+        content: messageContent,
+        dateTime: DateTime.now().millisecondsSinceEpoch,
+        roomId: room.id,
+        senderId: currentUser?.id ?? '',
+        senderName: currentUser?.userName ?? '',
+        categoryId: room.categoryId);
+    try {
       var result = await DataBaseUtils.insertMessageToFireBase(message);
       navigator.clearMessage();
-
-    }catch(error){
+    } catch (error) {
       navigator.showMessage(error.toString());
     }
   }
 
-  void updateMessages(){
+  void updateMessages() {
     streamMessage = DataBaseUtils.getMessages(room.id);
   }
 }

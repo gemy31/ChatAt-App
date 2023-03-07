@@ -4,20 +4,19 @@ import 'package:chat/ui/login/login_navigator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginViewModel extends ChangeNotifier{
-  late LoginNavigator navigator ;
-  void loginUserToFireBase(String email ,String password)async{
+class LoginViewModel extends ChangeNotifier {
+  late LoginNavigator navigator;
+
+  void loginUserToFireBase(String email, String password) async {
     navigator.showLoading();
     try {
-      final result = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password
-      );
-      var userObject = await DataBaseUtils.readUser(result.user?.uid??'');
-      if(userObject == null){
+      final result = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      var userObject = await DataBaseUtils.readUser(result.user?.uid ?? '');
+      if (userObject == null) {
         navigator.hideLoading();
         navigator.showMessage('Login Failed');
-      }else{
+      } else {
         navigator.hideLoading();
         navigator.showMessage('Login Successfully');
         navigator.navigateToHome(userObject);

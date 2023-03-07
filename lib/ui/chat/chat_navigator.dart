@@ -1,4 +1,5 @@
-abstract class ChatNavigator{
-void showMessage(String message);
-void clearMessage();
+abstract class ChatNavigator {
+  void showMessage(String message);
+
+  void clearMessage();
 }

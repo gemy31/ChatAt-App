@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:chat/providers/user_provider.dart';
 import 'package:chat/ui/register/register_navigator.dart';
 import 'package:chat/ui/register/register_view_model.dart';
-import 'package:chat/utils.dart' as utils ;
+import 'package:chat/utils.dart' as utils;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen>
             resizeToAvoidBottomInset: false,
             backgroundColor: Colors.transparent,
             appBar: AppBar(
-              title: Text('Create Account'),
+              title: const Text('Create Account'),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               elevation: 0,
@@ -62,13 +62,13 @@ class _RegisterScreenState extends State<RegisterScreen>
             body: Form(
               key: formKey,
               child: Container(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'First Name'),
+                      decoration: const InputDecoration(labelText: 'First Name'),
                       onChanged: (text) {
                         firstName = text;
                       },
@@ -80,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                       },
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Last Name'),
+                      decoration: const InputDecoration(labelText: 'Last Name'),
                       onChanged: (text) {
                         lastName = text;
                       },
@@ -92,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                       },
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'User Name'),
+                      decoration: const InputDecoration(labelText: 'User Name'),
                       onChanged: (text) {
                         userName = text;
                       },
@@ -104,7 +104,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                       },
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Email'),
+                      decoration: const InputDecoration(labelText: 'Email'),
                       onChanged: (text) {
                         email = text;
                       },
@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                       },
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Password'),
+                      decoration: const InputDecoration(labelText: 'Password'),
                       onChanged: (text) {
                         password = text;
                       },
@@ -136,22 +136,23 @@ class _RegisterScreenState extends State<RegisterScreen>
                         return null;
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     ElevatedButton(
                         onPressed: () {
                           validateForm();
                         },
-                        child: Text('Register')),
-                    SizedBox(
+                        child: const Text('Register')),
+                    const SizedBox(
                       height: 25,
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacementNamed(LoginScreen.routName);
+                        Navigator.of(context)
+                            .pushReplacementNamed(LoginScreen.routName);
                       },
-                      child: Text("Already Have Account.Sign In"),
+                      child: const Text("Already Have Account.Sign In"),
                     ),
                   ],
                 ),
@@ -165,7 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen>
 
   void validateForm() {
     if (formKey.currentState!.validate()) {
-      viewModel.registerUser(email, password,firstName,lastName,userName);
+      viewModel.registerUser(email, password, firstName, lastName, userName);
     }
   }
 
@@ -181,24 +182,18 @@ class _RegisterScreenState extends State<RegisterScreen>
 
   @override
   void showMessage(String message) {
-    utils.showMessage(context, message, 'Ok', (context){
+    utils.showMessage(context, message, 'Ok', (context) {
       Navigator.of(context).pop();
     });
   }
+
   @override
   void goToHome(MyUser user) {
-    var provider = Provider.of<UserProvider>(context,listen: false);
+    var provider = Provider.of<UserProvider>(context, listen: false);
     provider.user = user;
 
-    Timer(Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 5), () {
       Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
     });
   }
 }
-
-
-
-
-
-
-

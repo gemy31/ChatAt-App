@@ -5,15 +5,16 @@ import 'package:chat/ui/register/register_navigator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+class RegisterViewModel extends ChangeNotifier {
+  late RegisterNavigator navigator;
 
-class RegisterViewModel extends ChangeNotifier{
-  late RegisterNavigator navigator ;
-  void registerUser(String email , String password,
-      String firstName , String lastName,String userName)async{
+  void registerUser(String email, String password, String firstName,
+      String lastName, String userName) async {
     //show loading
     navigator.showLoading();
     try {
-      final response = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final response =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );

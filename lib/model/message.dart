@@ -10,7 +10,7 @@ class Message {
   String senderName;
 
   Message(
-      { this.id= '',
+      {this.id = '',
       required this.content,
       required this.dateTime,
       required this.roomId,

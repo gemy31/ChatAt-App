@@ -13,22 +13,22 @@ class MyUser {
       required this.userName,
       required this.email});
 
-  MyUser.fromJson(Map<String,dynamic> json):this(
-    id : json['id'] as String ,
-    firstName: json['firstName']as String,
-    lastName : json['lastName']as String,
-    userName : json['userName']as String,
-    email : json['email']as String,
-  );
-  Map<String ,dynamic> toJson(){
-    return{
-      'id' : id ,
-      'firstName' : firstName,
-      'lastName' :lastName,
-      'userName' :userName,
-      'email' : email,
+  MyUser.fromJson(Map<String, dynamic> json)
+      : this(
+          id: json['id'] as String,
+          firstName: json['firstName'] as String,
+          lastName: json['lastName'] as String,
+          userName: json['userName'] as String,
+          email: json['email'] as String,
+        );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'firstName': firstName,
+      'lastName': lastName,
+      'userName': userName,
+      'email': email,
     };
   }
-
-
 }
