@@ -56,17 +56,17 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
               elevation: 0,
             ),
             body: Container(
-              margin: EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-              padding: EdgeInsets.all(18),
+              margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+              padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.shade600,
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 2),
+                    spreadRadius: 4,
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
@@ -78,13 +78,15 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
                     child: StreamBuilder<QuerySnapshot<Message>>(
                       stream: viewModel.streamMessage,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
                         } else if (snapshot.hasError) {
                           return Text(snapshot.error.toString());
                         }
-                        var messages =
-                            snapshot.data?.docs.map((doc) => doc.data()).toList();
+                        var messages = snapshot.data?.docs
+                            .map((doc) => doc.data())
+                            .toList();
                         return ListView.builder(
                           itemBuilder: (context, index) {
                             return MessageItem(
@@ -107,7 +109,7 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
                           onChanged: (text) {
                             messageContent = text;
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               contentPadding: EdgeInsets.all(4),
                               hintText: 'Type a message',
                               border: OutlineInputBorder(
@@ -121,7 +123,7 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
                               )),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       ElevatedButton(
@@ -133,7 +135,7 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
                             vertical: 10.0,
                           ),
                           child: Row(
-                            children: [
+                            children: const [
                               Text('Send'),
                               SizedBox(
                                 width: 4,

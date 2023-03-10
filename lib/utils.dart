@@ -11,15 +11,17 @@ import 'package:flutter/material.dart';
             content: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(
+                const CircularProgressIndicator(
                   color: Colors.blue,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 18,
                 ),
                 Text(
                   message,
-                  style: TextStyle(fontSize: 18, color: Colors.blue),
+                  style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.blue),
                 ),
               ],
             ),

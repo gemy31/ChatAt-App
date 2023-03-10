@@ -23,7 +23,6 @@ class _HomeScreenState extends State<HomeScreen> implements HomeNavigator {
     super.initState();
     viewModel.navigator = this;
     viewModel.getRooms();
-
   }
 
   @override
@@ -42,36 +41,43 @@ class _HomeScreenState extends State<HomeScreen> implements HomeNavigator {
             ),
           ),
           Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              title: Text('My Rooms'),
-              centerTitle: true,
               backgroundColor: Colors.transparent,
-              elevation: 0,
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(AddRoom.routeName);
-              },
-              child: Icon(Icons.add,size: 30,),
-            ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: StreamBuilder<QuerySnapshot<Room>>(
-                    stream: viewModel.roomStream,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      }
-                      var rooms =
-                      snapshot.data?.docs.map((doc) => doc.data()).toList();
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 35,vertical: 30),
-                        child: GridView.builder(
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              appBar: AppBar(
+                title: const Text('My Rooms'),
+                centerTitle: true,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AddRoom.routeName);
+                },
+                child: const Icon(
+                  Icons.add,
+                  size: 30,
+                ),
+              ),
+              body: Column(
+                children: [
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot<Room>>(
+                      stream: viewModel.roomStream,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Text(snapshot.error.toString());
+                        }
+                        var rooms = snapshot.data?.docs
+                            .map((doc) => doc.data())
+                            .toList();
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 35, vertical: 25),
+                          child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               crossAxisSpacing: 24,
                               mainAxisSpacing: 28,
@@ -81,14 +87,12 @@ class _HomeScreenState extends State<HomeScreen> implements HomeNavigator {
                             },
                             itemCount: rooms?.length,
                           ),
-
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
-            )
-          ),
+                ],
+              )),
         ],
       ),
     );
