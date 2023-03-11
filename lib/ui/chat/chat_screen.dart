@@ -74,28 +74,31 @@ class _ChatScreenState extends State<ChatScreen> implements ChatNavigator {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    flex: 9,
-                    child: StreamBuilder<QuerySnapshot<Message>>(
-                      stream: viewModel.streamMessage,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Text(snapshot.error.toString());
-                        }
-                        var messages = snapshot.data?.docs
-                            .map((doc) => doc.data())
-                            .toList();
-                        return ListView.builder(
-                          itemBuilder: (context, index) {
-                            return MessageItem(
-                              message: messages![index],
-                            );
-                          },
-                          itemCount: messages?.length ?? 0,
-                        );
-                      },
+                    child: Container(
+                      child: StreamBuilder<QuerySnapshot<Message>>(
+                        stream: viewModel.streamMessage,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text(snapshot.error.toString()));
+                          }
+                          var messages = snapshot.data?.docs
+                              .map((doc) => doc.data())
+                              .toList();
+                          return ListView.builder(
+                            itemBuilder: (context, index) {
+                              return MessageItem(
+                                message: messages![index],
+                              );
+                            },
+                            itemCount: messages?.length ?? 0,
+                          );
+                        },
+                      ),
                     ),
                   ),
                   Row(

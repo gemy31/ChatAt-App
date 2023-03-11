@@ -25,39 +25,34 @@ class SentMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                ),
-                color: Colors.blue,
+    return Container(
+      margin: const EdgeInsets.all(6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
               ),
-              child: Text(
-                message.content,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18
-                ),
-              ),
+              color: Colors.blue,
             ),
-            SizedBox(
-              height: 6,
+            child: Text(
+              message.content,
+              style: const TextStyle(color: Colors.white, fontSize: 18),
             ),
-            //DateFormat.Hms().format(now)
-            //DateTime.fromMillisecondsSinceEpoch(message.dateTime)
-            Text(
-                '${DateFormat.jm().format(DateTime.fromMillisecondsSinceEpoch(message.dateTime))}'),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 6,
+          ),
+          //DateFormat.Hms().format(now)
+          //DateTime.fromMillisecondsSinceEpoch(message.dateTime)
+          Text(DateFormat.jm()
+              .format(DateTime.fromMillisecondsSinceEpoch(message.dateTime))),
+        ],
       ),
     );
   }
@@ -70,37 +65,32 @@ class ReceiveMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                ),
-                color: Colors.grey.shade600,
+    return Container(
+      margin: const EdgeInsets.all(6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
               ),
-              child: Text(
-                message.content,
-                style: TextStyle(
-                  color: Colors.black,
-                    fontSize: 18
-                ),
-              ),
+              color: Colors.grey.shade600,
             ),
-            SizedBox(
-              height: 6,
+            child: Text(
+              message.content,
+              style: const TextStyle(color: Colors.black, fontSize: 18),
             ),
-            Text(
-                '${DateFormat.jm().format(DateTime.fromMillisecondsSinceEpoch(message.dateTime))}'),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 6,
+          ),
+          Text(DateFormat.jm()
+              .format(DateTime.fromMillisecondsSinceEpoch(message.dateTime))),
+        ],
       ),
     );
   }
